@@ -15,9 +15,11 @@ def div(a, b):
     try:
         return a / b
     except ZeroDivisionError:
-        return f"Деление на ноль недопустимо"
+        return f"Нельзя делить на 0"
 
 
-my_div = Division(1, 1)
+my_div = Division(0, 0)
+#  Тут хотел уточнить, не до конца понимаю где можно пусто указать,
+# а где нужно хотя бы какие-либо значения. Имею ввиду вот так ().
 print(div(10, 0))
 print(div(10, 1))

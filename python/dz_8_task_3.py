@@ -12,28 +12,22 @@
 """
 
 
-class Error:
-    def __init__(self, *args):
+class List:
+    def __init__(self):
         self.my_list = []
 
     def my_input(self):
 
         while True:
             try:
-                val = int(input('Введите значения и нажимайте Enter - '))
+                val = int(input('Введите число: '))
                 self.my_list.append(val)
-                print(f'Текущий список - {self.my_list} \n ')
-            except:
-                print(f"Недопустимое значение - строка и булево")
-                y_or_n = input(f'Попробовать еще раз? Y/N ')
+            except ValueError:
+                stopper = input(f'Ошибка! Введите число или stop для завершения: ')
 
-                if y_or_n == 'Y' or y_or_n == 'y':
-                    print(try_except.my_input())
-                elif y_or_n == 'N' or y_or_n == 'n':
-                    return f'Вы вышли'
-                else:
-                    return f'Вы вышли'
+                if stopper.lower() == 'stop':
+                    return f'Вы вышли. Итоговый спискок: {self.my_list}'
 
 
-try_except = Error(1)
-print(try_except.my_input())
+for_work = List()
+print(for_work.my_input())
