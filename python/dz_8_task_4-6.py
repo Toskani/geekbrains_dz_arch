@@ -15,62 +15,72 @@
 """
 
 
-class Store:
-
-    def __init__(self, name, price, quantity, number_of_lists, *args):
+class Storage:
+    def __init__(self, name: str, price: int, in_stock: bool, *args):
         self.name = name
         self.price = price
-        self.quantity = quantity
-        self.numb = number_of_lists
-        self.my_store_full = []
-        self.my_store = []
-        self.my_unit = {'Модель устройства': self.name, 'Цена за ед': self.price, 'Количество': self.quantity}
+        self.in_stock = in_stock
+        self.my_storage_full = []
+        self.my_storage = []
+        self.my_copy = {'Модель устройства': self.name, 'Цена за ед': self.price, 'Количество': self.in_stock}
 
-    def __str__(self):
-        return f'{self.name} цена {self.price} количество {self.quantity}'
-
-    def reception(self):
+    def acceptance(self):
         try:
-            unit = input(f'Введите наименование ')
-            unit_p = int(input(f'Введите цену за ед '))
-            unit_q = int(input(f'Введите количество '))
-            unique = {'Модель устройства': unit, 'Цена за ед': unit_p, 'Количество': unit_q}
-            self.my_unit.update(unique)
-            self.my_store.append(self.my_unit)
-            print(f'Текущий список -\n {self.my_store}')
-        except:
-            return f'Ошибка ввода данных'
+            name_1 = input(f'Введите наименование: ')
+            price_1 = int(input(f'Введите цену: '))
+            number_of = int(input(f'Введите количество:'))
+            copy = {'Название': name_1, 'Цена': price_1, 'Количество': number_of}
+            self.my_copy.update(copy)
+            self.my_storage.append(self.my_copy)
+            print(f'Текущий список -\n {self.my_storage}')
+        except ValueError:
+            return f'Ошибка типа данных'
 
         print(f'Для выхода - Q, продолжение - Enter')
-        q = input(f'---> ')
-        if q == 'Q' or q == 'q':
-            self.my_store_full.append(self.my_store)
-            print(f'Весь склад -\n {self.my_store_full}')
+        q = input(f'')
+        if q.lower() == 'q':
+            self.my_storage_full.append(self.my_storage)
+            print(f'Весь склад -\n {self.my_storage_full}')
             return f'Выход'
         else:
-            return Store.reception(self)
+            return Storage.acceptance(self)
 
 
-class Printer(Store):
-    def to_print(self):
-        return f'to print smth {self.numb} times'
+class OfficeEquipment(Storage):
+    division = 'Оргтехника'
 
 
-class Scanner(Store):
-    def to_scan(self):
-        return f'to scan smth {self.numb} times'
+class Printer(OfficeEquipment):
+    def __init__(self, name: str, price: int, in_stock: bool, color: bool):
+        super().__init__(name, price, in_stock)
+        self.color = color
+    # Пытался тут вкурить как без лишних дублирований init все раскрутить, очень долго крутил вертел, но не понял
+
+    def __str__(self):
+        return f"Данные об устройстве: категория товара - {self.division}, название - {self.name}," \
+               f"цена - {self.price}, наличие - {self.in_stock}, цветной - {self.color}"
 
 
-class Copier(Store):
-    def to_copier(self):
-        return f'to copier smth  {self.numb} times'
+class Scanner(OfficeEquipment):
+    def __init__(self, name: str, price: int, in_stock: bool, automatic: bool):
+        super().__init__(name, price, in_stock)
+        self.automatic = automatic
+
+    def __str__(self):
+        return f"Данные об устройстве: категория товара - {self.division}, название - {self.name}," \
+               f"цена - {self.price}, наличие - {self.in_stock}, цветной - {self.automatic}"
 
 
-unit_1 = Printer('hp', 2000, 5, 10)
-unit_2 = Scanner('Canon', 1200, 5, 10)
-unit_3 = Copier('Xerox', 1500, 1, 15)
-print(unit_1.reception())
-print(unit_2.reception())
-print(unit_3.reception())
-print(unit_1.to_print())
-print(unit_3.to_copier())
+class Xerox(OfficeEquipment):
+    def __init__(self, name: str, price: int, in_stock: bool, multifunctional: bool):
+        super().__init__(name, price, in_stock)
+        self.multifunctional = multifunctional
+
+    def __str__(self):
+        return f"Данные об устройстве: категория товара - {self.division}, название - {self.name}," \
+               f"цена - {self.price}, наличие - {self.in_stock}, цветной - {self.multifunctional}"
+
+
+my_tech = Printer('Притнер', 20, True, True)
+print(my_tech)
+print(my_tech.acceptance())
