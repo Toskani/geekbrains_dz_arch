@@ -14,6 +14,15 @@ name VArCHAR(255),
 id_table INT
 ) ENGINE = Archive;
 
+CREATE TABLE test_archive (
+  id bigint auto_increment NOT NULL,
+  created_at DATETIME NULL,
+  name varchar(100) NULL,
+  id_table INT null,
+  CONSTRAINT test_archive_pk PRIMARY KEY (id)
+)
+ENGINE=ARCHIVE;
+
 delimiter //
 CREATE procedure insert_logs ()
 begin
